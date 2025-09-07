@@ -1,9 +1,6 @@
 console.log('Project started!');
 
-let gridColumns = 16;
-let gridRows = 16;
-updateGrid();
-
+updateGrid(16, 16);
 const updateGridButton = document.getElementById('updateGrid');
 
 updateGridButton?.addEventListener('mousedown', function () {
@@ -14,34 +11,34 @@ updateGridButton?.addEventListener('mousedown', function () {
   console.log(rowTempt);
   if (columnsTempt >= 100 || rowTempt >= 100) {
     alert('Please enter a number smaller than 100');
+    console.error(`Process canceled: Input(columns) is >=100`);
+    return;
+  } else if (columnsTempt <= 0 || rowTempt <= 0) {
+    alert('You need to have at least 1 column and 1 row');
+    console.error(`Process canceled: Input(Rows) <= 0`);
+    return;
   } else {
-    gridColumns = columnsTempt;
-    gridRows = rowTempt;
-    updateGrid();
+    updateGrid(columnsTempt, rowTempt);
   }
 });
 
-function updateGrid() {
+function updateGrid(columns: number, rows: number) {
   const mainGrid = document.querySelector('.bar-grid');
 
   if (mainGrid) {
     mainGrid.replaceChildren();
 
     const gridContainer = document.createElement('div');
-    gridContainer.style.cssText = `display:grid; grid-template-columns: repeat(${gridColumns}, 20px); grid-template-rows: repeat(${gridRows}, 20px); border: 1px solid black`;
+    gridContainer.style.cssText = `display:grid; grid-template-columns: repeat(${columns}, 20px); grid-template-rows: repeat(${rows}, 20px); border: 1px solid black`;
     mainGrid.appendChild(gridContainer);
-
-    // Create all the grids elements
-    for (let columnIndex = 0; columnIndex < gridColumns; columnIndex++) {
-      for (let rowIndex = 0; rowIndex < gridRows; rowIndex++) {
-        console.log('adding columns');
+    for (let columnIndex = 0; columnIndex < columns; columnIndex++) {
+      for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
         const gridItem = document.createElement('div');
-        // gridItem.textContent = `${columnIndex}-${rowIndex}`;
         gridItem.style.cssText = `background-color: #ddd;
-                                  border: 0.1px;
-                                  margin: 1px;
-                                  transition: 0.4s;
-                                }`;
+        border: 0.1px;
+        margin: 1px;
+        transition: 0.4s;
+        }`;
         gridItem.addEventListener('mouseover', function (e) {
           if (e.shiftKey) {
             gridItem.style.backgroundColor = 'red';
@@ -54,6 +51,7 @@ function updateGrid() {
         });
         gridContainer.appendChild(gridItem);
       }
+      console.log(`Successfully added ${columns * rows} HTML elements`);
     }
   }
 }
