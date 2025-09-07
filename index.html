@@ -8,17 +8,48 @@
   </head>
   <body>
     <div class="parent">
-      <div class="div1">
+      <div class="header">
         <div class="title">
           <h2>Etch a sketch</h2>
         </div>
         <div class="links">
-          <li>About</li>
-          <li>Source code</li>
+          <li>
+            <a href="https://github.com/th3pool/etch-a-sketch">Source code</a>
+          </li>
         </div>
       </div>
-      <div class="div2">Options go here</div>
-      <div class="div3">Grid does here</div>
+      <div class="bar-options flx flx-vert">
+        <div class="options flx flx-vert">
+          <h4>Select grid size</h4>
+          <form>
+            <input
+              type="number"
+              id="numberOfColumns"
+              value="16"
+              step="1"
+              min="1"
+              max="100"
+            />
+            <p>x</p>
+            <input
+              type="number"
+              id="numberOfRows"
+              value="16"
+              step="1"
+              min="1"
+              max="100"
+            />
+            <button id="updateGrid">Clear and update grid</button>
+          </form>
+        </div>
+        <div class="options flx flex flx-vert">
+          <p>
+            Press the <span>shift</span> key and hover over the squares to color
+            them red, or press alt to randomize their color
+          </p>
+        </div>
+      </div>
+      <div class="bar-grid"></div>
     </div>
 
     <!--  -->
